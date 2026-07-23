@@ -1,0 +1,360 @@
+turnkey-tomcat-apache-18.0 (1) turnkey; urgency=low
+
+  * Updated all relevant Debian packages to Bookworm/12 versions; including
+    Tomcat 10 & Java 17.
+    [Anton Pyrogovskyi <anton@turnkeylinux.org>]
+
+  * Confconsole: bugfix broken DNS-01 Let's Encrypt challenge- closes #1876 &
+    #1895.
+    [Jeremy Davis <jeremy@turnkeylinux.org>]
+
+  * Ensure hashfile includes URL to public key - closes #1864.
+
+  * Include webmin-logviewer module by default - closes #1866.
+
+  * Upgraded base distribution to Debian 12.x/Bookworm.
+
+  * Configuration console (confconsole):
+    - Support for DNS-01 Let's Encrypt challenges.
+      [ Oleh Dmytrychenko <dmytrychenko.oleh@gmail.com> github: @NitrogenUA ]
+    - Support for getting Let's Encrypt cert via IPv6 - closes #1785.
+    - Refactor network interface code to ensure that it works as expected and
+      supports more possible network config (e.g. hotplug interfaces & wifi).
+    - Show error message rather than stacktrace when window resized to
+      incompatable resolution - closes  #1609.
+      [ Stefan Davis <stefan@turnkeylinux.org> ]
+    - Bugfix exception when quitting configuration of mail relay.
+      [ Oleh Dmytrychenko <dmytrychenko.oleh@gmail.com> github: @NitrogenUA ]
+    - Improve code quality: implement typing, fstrings and make (mostly) PEP8
+      compliant.
+      [Stefan Davis <stefan@turnkeylinux.org> & Jeremy Davis
+
+  * Firstboot Initialization (inithooks):
+    - Refactor start up (now hooks into getty process, rather than having it's
+      own service).
+      [ Stefan Davis <stefan@turnkeylinux.org> ]
+    - Refactor firstboot.d/01ipconfig (and 09hostname) to ensure that hostname
+      is included in dhcp info when set via inithooks.
+    - Package turnkey-make-ssl-cert script (from common overlay - now packaged
+      as turnkey-ssl). Refactor relevant scripts to leverage turnkey-ssl.
+    - Refactor run script - use bashisms and general tidying.
+    - Show blacklisted password characters more nicely.
+    - Misc packaging changes/improvements.
+    - Support returning output from MySQL - i.e. support 'SELECT'. (Only
+      applies to apps that include MySQL/MariaDB).
+
+  * Web management console (webmin):
+    - Upgraded webmin to v2.105.
+    - Replace webmin-shell with webmin-xterm module by default - closes #1904.
+    - Removed stunnel reverse proxy (Webmin hosted directly now).
+    - Ensure that Webmin uses HTTPS with default cert
+      (/etc/ssl/private/cert.pem).
+    - Disabled Webmin Let's Encrypt (for now).
+
+  * Web shell (shellinabox):
+    - Completely removed in v18.0 (Webmin now has a proper interactive shell).
+    - Note: previous v18.0 releases did not include webmin-xterm pkg - see
+      above webmin note &/or #1904.
+
+  * Backup (tklbam):
+    - Ported dependencies to Debian Bookworm; otherwise unchanged.
+
+  * Security hardening & improvements:
+    - Generate and use new TurnKey Bookworm keys.
+    - Automate (and require) default pinning for packages from Debian
+      backports. Also support non-free backports.
+
+  * IPv6 support:
+    - Adminer (only on LAMP based apps) listen on IPv6.
+    - Nginx/NodeJS (NodeJS based apps only) listen on IPv6.
+
+  * Misc bugfixes & feature implementations:
+    - Remove rsyslog package (systemd journal now all that's needed).
+    - Include zstd compression support.
+    - Enable new non-free-firmware apt repo by default.
+    - Improve turnkey-artisan so that it works reliably in cron jobs (only
+      Laravel based LAMP apps).
+
+  * Use MariaDB (MySQL replacement) v10.11.3 (from debian repos).
+
+  * Set mod_evasive log location - makes debugging easier.
+    [ Jeremy Davis <jeremy@turnkeylinux.org> ]
+
+  * Include and enable mod_evasive and mod_security2 by default in Apache.
+    [ Stefan Davis <Stefan@turnkeylinux.org> ]
+
+ -- Jeremy Davis <jeremy@turnkeylinux.org>  Tue, 07 May 2024 02:12:52 +0000
+
+turnkey-tomcat-apache-17.1 (1) turnkey; urgency=low
+
+  * Updated all Debian packages to latest.
+    [ autopatched by buildtasks ]
+
+  * Patched bugfix release. Closes #1734.
+    [ autopatched by buildtasks ]
+
+ -- Jeremy Davis <jeremy@turnkeylinux.org>  Wed, 14 Sep 2022 07:03:09 +0000
+
+turnkey-tomcat-apache-17.0 (1) turnkey; urgency=low
+
+  * Updated all relevant Debian packages to Bullseye/11 versions
+
+  * Note: Please refer to turnkey-core's 17.0 changelog for changes common to all
+    appliances. Here we only describe changes specific to this appliance.
+
+ -- Stefan Davis <stefan@turnkeylinux.org>  Tue, 29 Mar 2022 00:16:11 +0000
+
+turnkey-tomcat-apache-16.1 (1) turnkey; urgency=low
+
+  * Rebuilt against latest Debian Buster
+
+  * Note: Please refer to turnkey-core's changelog for changes common to all
+    appliances. Here we only describe changes specific to this appliance.
+
+ -- Stefan Davis <stefan@turnkeylinux.org>  Mon, 29 Mar 2021 23:10:53 +1100
+
+turnkey-tomcat-apache-16.0 (1) turnkey; urgency=low
+
+  * Updated all relevant Debian packages to Buster/10 versions; including
+    Tomcat 9 & Java 11.
+
+  * Explcitly disable TLS<1.2 (i.e. SSLv3, TLSv1, TLSv1.1). (v15.x
+    TurnKey releases supported TLS 1.2, but could fallback as low as TLSv1).
+
+  * Update SSL/TLS cyphers to provide "Intermediate" browser/client support
+    (suitable for "General-purpose servers with a variety of clients,
+    recommended for almost all systems"). As provided by Mozilla via
+    https://ssl-config.mozilla.org/.
+
+  * Updated version of mysqltuner script - now installed as per upstream
+    recommendation.
+
+  * Note: Please refer to turnkey-core's changelog for changes common to all
+    appliances. Here we only describe changes specific to this appliance.
+
+ -- Jeremy Davis <jeremy@turnkeylinux.org>  Thu, 25 Jun 2020 18:28:24 +1000
+
+turnkey-tomcat-apache-15.1 (1) turnkey; urgency=low
+
+  * Rebuild to resolve inadvertant removal of mariadb during sec-updates
+    - part of #1246.
+
+ -- Jeremy Davis <jeremy@turnkeylinux.org>  Wed, 21 Nov 2018 18:22:53 +1100
+
+turnkey-tomcat-apache-15.0 (1) turnkey; urgency=low
+
+  * Tomcat:
+
+    - Update to Tomcat8 (Latest Debian 9/Stretch package version of Tomcat).
+    - Update to OpenJDK-8 (Latest Debian 9/Stretch package version of OpenJDK).
+
+  * Install Adminer directly from stretch/main repo
+
+  * Replace MySQL with MariaDB
+
+  * Note: Please refer to turnkey-core's changelog for changes common to all
+    appliances. Here we only describe changes specific to this appliance.
+
+ -- Vlad Kuzmenko <vlad@turnkeylinux.org>  Thu, 12 Jul 2018 04:02:42 +1000
+
+turnkey-tomcat-apache-14.2 (1) turnkey; urgency=low
+
+  * Replaced mod_jk control panel redirect with javascript redirect in 
+    index.html [closes #233].
+
+  * Installed security updates.
+
+  * Note: Please refer to turnkey-core's changelog for changes common to all
+    appliances. Here we only describe changes specific to this appliance.
+
+ -- Jeremy Davis <jeremy@turnkeylinux.org>  Wed, 19 Apr 2017 12:44:45 +1000
+
+turnkey-tomcat-apache-14.1 (1) turnkey; urgency=low
+
+  * Apply v14.0 Tomcat fix to Tomcat-Apache appliance [#581].
+
+  * Note: Please refer to turnkey-core's changelog for changes common to all
+    appliances. Here we only describe changes specific to this appliance. 
+
+ -- Jeremy Davis <jeremy@turnkeylinux.org>  Wed, 24 Feb 2016 15:42:01 +1100
+
+turnkey-tomcat-apache-14.0 (1) turnkey; urgency=low
+
+  * Tomcat Apache:
+
+    - Update to Tomcat7 (Latest Debian Jessie package version of Tomcat).
+    - Update to OpenJDK-7 (Latest Debian Jessie package version of OpenJDK).
+
+  * Note: Please refer to turnkey-core's changelog for changes common to all
+    appliances. Here we only describe changes specific to this appliance.
+
+ -- Jeremy Davis <jeremy@turnkeylinux.org>  Fri, 05 Jun 2015 15:05:19 +1000
+
+turnkey-tomcat-apache-13.0 (1) turnkey; urgency=low
+
+  * Tomcat Apache:
+
+    - Latest Debian Wheezy package version of Tomcat.
+    - Removed JkWorkersFile directive [#125].
+
+  * Note: Please refer to turnkey-core's changelog for changes common to all
+    appliances. Here we only describe changes specific to this appliance.
+
+ -- Alon Swartz <alon@turnkeylinux.org>  Fri, 11 Oct 2013 11:19:53 +0300
+
+turnkey-tomcat-apache-12.1 (1) turnkey; urgency=low
+
+  * Latest Debian Squeeze package version of Tomcat.
+
+  * Note: Please refer to turnkey-core's changelog for changes common to all
+    appliances. Here we only describe changes specific to this appliance.
+
+ -- Alon Swartz <alon@turnkeylinux.org>  Sun, 07 Apr 2013 08:00:00 +0200
+
+turnkey-tomcat-apache-12.0 (1) turnkey; urgency=low
+
+  * Tomcat:
+
+    - Upgraded to latest upstream package.
+    - Updated Tomcat-Apache AJP connector configuration to use UTF-8 URL
+      encoding which fixes a clear violation of relevant RFC's.
+
+  * Major component versions
+
+    tomcat6             6.0.35-1+squeeze2
+    apache2             2.2.16-6+squeeze7
+    libapache2-mod-jk   1:1.2.30-1squeeze1
+    openjdk-6-jdk       6b18-1.8.13-0+squeeze2
+    openjdk-6-jre       6b18-1.8.13-0+squeeze2
+    ant                 1.8.0-4
+    mysql-server        5.1.63-0+squeeze1
+    libmysql-java       5.1.10+dfsg-2
+
+  * Note: Please refer to turnkey-core's changelog for changes common to all
+    appliances. Here we only describe changes specific to this appliance.
+
+ -- Alon Swartz <alon@turnkeylinux.org>  Wed, 01 Aug 2012 08:00:00 +0200
+
+turnkey-tomcat-apache-11.3 (1) turnkey; urgency=low
+
+  * Installed security updates.
+  * Enabled etckeeper garbage collection by default.
+  * Upgraded to latest inithooks version (adhoc re-initialization via turnkey-init)
+
+ -- Alon Swartz <alon@turnkeylinux.org>  Mon, 05 Dec 2011 10:48:44 +0000
+
+turnkey-tomcat-apache-11.2 (1) turnkey; urgency=low
+
+  * Installed security updates.
+  * Added HubDNS package and firstboot configuration.
+
+ -- Alon Swartz <alon@turnkeylinux.org>  Fri, 15 Jul 2011 07:47:08 +0000
+
+
+turnkey-tomcat-apache-11.1 (1) turnkey; urgency=low
+
+  * Tomcat:
+
+    - Upgraded to tomcat6 from tomcat5.5
+    - Transitioned to OpenJDK (moving away from Sun Java).
+    - Set Tomcat admin password on firstboot (convenience, security).
+    - Added offline documentation.
+
+  * MySQL:
+
+    - Added MySQL as per common request.
+    - Set MySQL root password on firstboot (convenience, security).
+    - Force MySQL to use Unicode/UTF8.
+
+  * Set postfix MTA myhostname to localhost (bugfix).
+
+  * Updated TKL web control panel (admin not ported to tomcat6).
+
+  * Major component versions:
+
+    tomcat6            6.0.24-2ubuntu1.5
+    openjdk-6-jdk      6b20-1.9.2-0ubuntu1~10.04.1
+    openjdk-6-jre      6b20-1.9.2-0ubuntu1~10.04.1
+    ant                1.7.1-4ubuntu1.1
+    apache2-mpm-worker 2.2.14-5ubuntu8.4
+    libapache2-mod-jk  1:1.2.28-2
+
+  * Note: Please refer to turnkey-core's changelog for changes common to all
+    appliances. Here we only describe changes specific to this appliance.
+
+ -- Alon Swartz <alon@turnkeylinux.org>  Sun, 19 Dec 2010 15:01:05 +0200
+
+turnkey-tomcat-apache-2009.10 (2) hardy; urgency=low
+
+  * Installed all security updates (see manifest for package versions).
+  
+  * Install security updates on firstboot (except when running live).
+  
+  * Trick webmin into not checking for upgrades (managed by apt).
+  
+  * Included latest version of inithooks and updated scripts.
+  
+  * Included wget as per common request.
+
+ -- Alon Swartz <alon@turnkeylinux.org>  Mon, 29 Mar 2010 09:02:11 +0200
+
+turnkey-tomcat-apache-2009.10 (1) hardy; urgency=low
+
+  * Renamed tomcat-apache (was tomcat).
+
+  * Upgraded to sun-java6.
+
+  * Added postfix MTA (bound to localhost) to allow sending of email from
+    web applications (e.g., password recovery). Also added webmin-postfix
+    module for convenience.
+
+  * Added Turnkey web control panel (replaces welcome page)
+  * Added redirects for /manager and /host-manager (convenience)
+  * Enabled multiverse Ubuntu repository and pinned sun-java6 so it can be
+    updated (security).
+
+  * Regenerates all secrets during installation / firstboot (security).
+
+  * Major component versions:
+
+    tomcat5.5          5.5.25-5ubuntu1.2
+    sun-java6-jdk      6-16-0ubuntu1.8.04
+    sun-java6-jre      6-16-0ubuntu1.8.04
+    ant                1.7.0-3
+    apache2-mpm-worker 2.2.8-1ubuntu0.11
+    libapache2-mod-jk  1:1.2.25-2
+
+  * Note: Please refer to turnkey-core's changelog for changes common to all
+    appliances. Here we only describe changes specific to this appliance.
+
+ -- Alon Swartz <alon@turnkeylinux.org>  Tue, 29 Sep 2009 15:39:41 +0200
+
+turnkey-tomcat-apache-2009.04 (1) hardy; urgency=low
+
+  * Initial public release of TurnKey Linux Tomcat
+
+  * SSL support out of the box
+
+  * Tomcat, Apache and Java configurations
+
+    - Apache2 Jk loadbalancer connector to Tomcat (performance)
+    - JkMounts for admin, manager, host-manager applications (convenience)
+    - Configured Tomcat admin/manager roles and admin user
+    - Configured Tomcat AJP connector to bind to localhost (security)
+    - Removed tomcat HTTP connector listener (security)
+    - Tomcat and Java environment variables configuration system wide
+    - Welcome application including useful information and login credentials
+
+  * Major component versions
+
+    tomcat5.5          5.5.25-5ubuntu1.2
+    sun-java5-jdk      1.5.0-16-2ubuntu2
+    sun-java5-jre      1.5.0-16-2ubuntu2
+    ant                1.7.0-3
+    apache2-mpm-worker 2.2.8-1ubuntu0.5
+    libapache2-mod-jk  1:1.2.25-2
+
+  * Note: Please refer to turnkey-core's changelog for changes common to all
+    appliances. Here we only describe changes specific to this appliance.
+
+ -- Alon Swartz <alon@turnkeylinux.org>  Fri, 03 Apr 2009 11:35:23 +0200

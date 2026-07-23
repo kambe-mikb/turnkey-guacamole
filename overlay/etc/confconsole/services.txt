@@ -1,0 +1,4 @@
+Web:       http://$ipaddr
+           https://$ipaddr
+Webmin:    https://$ipaddr:12321
+SSH/SFTP:  root@$ipaddr (port 22)
