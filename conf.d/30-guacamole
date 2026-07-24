@@ -46,7 +46,7 @@ ldconfig
 
 cd "${BUILD_DIR}"
 
-jakartaee-migration \
+javax2jakarta \
     "guacamole-${GUAC_VERSION}.war" \
     "${TOMCAT_WEBAPPS}/guacamole.war"
 
@@ -61,7 +61,7 @@ MYSQL_EXTENSION="$(
 
 test -n "${MYSQL_EXTENSION}"
 
-jakartaee-migration \
+javax2jakarta \
     "${MYSQL_EXTENSION}" \
     "${GUAC_HOME}/extensions/guacamole-auth-jdbc-mysql-${GUAC_VERSION}.jar"
 
@@ -99,7 +99,7 @@ LDAP_EXTENSION="$(
 
 test -n "${LDAP_EXTENSION}"
 
-jakartaee-migration \
+javax2jakarta \
     "${LDAP_EXTENSION}" \
     "${GUAC_HOME}/extensions/guacamole-auth-ldap-${GUAC_VERSION}.jar"
 
@@ -114,7 +114,7 @@ SSO_EXTENSION="$(
 
 test -n "${SSO_EXTENSION}"
 
-jakartaee-migration \
+javax2jakarta \
     "${SSO_EXTENSION}" \
     "${GUAC_HOME}/extensions/guacamole-auth-sso-${GUAC_VERSION}.jar"
 
