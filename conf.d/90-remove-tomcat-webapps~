@@ -1,0 +1,13 @@
+#!/bin/sh
+# Disable access to generic Tomcat applications
+
+APPS_TO_REMOVE="
+cp
+manager
+host-manager
+"
+
+for app in ${APPS_TO_REMOVE}"; do
+    rm -rf /var/lib/tomcat10/webapps/${app}
+    rm -f /var/lib/tomcat10/webapps/${app}.war
+done

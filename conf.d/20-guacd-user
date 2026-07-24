@@ -1,0 +1,15 @@
+#!/bin/bash -e
+
+if ! getent group guacd >/dev/null; then
+    groupadd --system guacd
+fi
+
+if ! getent passwd guacd >/dev/null; then
+    useradd \
+        --system \
+        --gid guacd \
+        --home-dir /var/lib/guacd \
+        --no-create-home \
+        --shell /usr/sbin/nologin \
+        guacd
+fi
