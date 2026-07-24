@@ -109,7 +109,7 @@ SSO_EXTENSION="$(
     find \
         "guacamole-auth-sso-${GUAC_VERSION}" \
         -type f \
-        -name "guacamole-auth-sso-${GUAC_VERSION}.jar" \
+        -name "guacamole-auth-sso-openid-${GUAC_VERSION}.jar" \
         -print \
         -quit
 )"
@@ -119,7 +119,6 @@ test -n "${SSO_EXTENSION}"
 javax2jakarta \
     "${SSO_EXTENSION}" \
     "${GUAC_HOME}/extensions/guacamole-auth-sso-${GUAC_VERSION}.jar"
-
 
 install -d -o guacd -g guacd -m 0750 /var/lib/guacd
 install -d -m 0750 /usr/share/guacamole/mysql-schema
