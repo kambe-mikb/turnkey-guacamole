@@ -23,7 +23,7 @@ for p in ${GUAC_DOWNLOADS}; do
     curl -fL "${DOWNLOAD_BASE}/${p}" -o $(basename "${p}")
 done
 
-sha512sum --check - <<EOF
+sha256sum --check - <<EOF
 8bc45675da96d7b6f39728160181e3d4ff3c08f460f6d26de5805b642bf13f2b  guacamole-server-1.6.0.tar.gz
 b41ceb1e2df010b54db563e0b00edb8d5fe9f073c6168462e4c978df0fc6e716  guacamole-1.6.0.war
 b07f27adc370324108527b6929f61d93880026d57c1033064bd1c55b881c7497  guacamole-auth-ldap-1.6.0.tar.gz
