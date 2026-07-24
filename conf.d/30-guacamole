@@ -33,6 +33,8 @@ EOF
 
 tar -xzf "guacamole-server-${GUAC_VERSION}.tar.gz"
 tar -xzf "guacamole-auth-jdbc-${GUAC_VERSION}.tar.gz"
+tar -xzf "guacamole-auth-ldap-${GUAC_VERSION}.tar.gz"
+tar -xzf "guacamole-auth-sso-${GUAC_VERSION}.tar.gz"
 
 cd "guacamole-server-${GUAC_VERSION}"
 
