@@ -8,6 +8,6 @@ host-manager
 "
 
 for app in "${APPS_TO_REMOVE}"; do
-    rm -rf /var/lib/tomcat10/webapps/${app}
-    rm -f /var/lib/tomcat10/webapps/${app}.war
+#    rm -rf /var/lib/tomcat10/webapps/${app}
+#    rm -f /var/lib/tomcat10/webapps/${app}.war
 done
