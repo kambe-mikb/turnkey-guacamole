@@ -110,8 +110,6 @@ javax2jakarta \
     "${GUAC_HOME}/extensions/guacamole-auth-sso-${GUAC_VERSION}.jar"
 
 install -d -o guacd -g guacd -m 0750 /var/lib/guacd
-install -d -m 0750 /usr/share/guacamole/mysql-schema
-install -m 0644 "${MYSQL_SCHEMA_DIR}"/*.sql /usr/share/guacamole/mysql-schema
 
 systemctl enable guacd.service
 

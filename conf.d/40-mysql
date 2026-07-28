@@ -20,20 +20,6 @@ systemctl start mysql
 mysqladmin create "${DB_NAME}"
 cat "${MYSQL_SCHEMA_DIR}"/*.sql | mysql --batch
 
-# secure MySQL/MariaDB
-mysql <<EOF
-USE mysql;
-# remove anonymous users
-DELETE FROM user WHERE User='';
-
-# remove remote root
-DELETE FROM user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
-
-# remove test database
-DROP DATABASE IF EXISTS test;
-DELETE FROM db WHERE Db='test' OR Db='test\\_%';
-EOF
-
 # Create database user for Guacamole
 ADMIN_PWORD=$(mcookie)
 
