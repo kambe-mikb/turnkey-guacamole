@@ -2,6 +2,7 @@
 
 GUAC_VERSION="1.6.0"
 DOWNLOAD_BASE="https://downloads.apache.org/guacamole/${GUAC_VERSION}"
+DOWNLOAD_PROXY="${FAB_HTTP_PROXY:+--proxy ${FAB_HTTP_PROXY}}"
 BUILD_DIR="/usr/src/guacamole-build"
 GUAC_HOME="/etc/guacamole"
 TOMCAT_WEBAPPS="/var/lib/tomcat10/webapps"
@@ -20,7 +21,7 @@ mkdir -p "${GUAC_HOME}/lib"
 cd "${BUILD_DIR}"
 
 for p in ${GUAC_DOWNLOADS}; do
-    curl -fL "${DOWNLOAD_BASE}/${p}" -o $(basename "${p}")
+    curl -fL -O "${DOWNLOAD_PROXY}" "${DOWNLOAD_BASE}/${p}" -o $(basename "${p}")
 done
 
 sha256sum --check - <<EOF
@@ -31,10 +32,9 @@ b07f27adc370324108527b6929f61d93880026d57c1033064bd1c55b881c7497  guacamole-auth
 e957984471ac50a87f472f51aec9bf7e378ae67ce2502ff938030011a670dcae  guacamole-auth-sso-1.6.0.tar.gz
 EOF
 
-tar -xzf "guacamole-server-${GUAC_VERSION}.tar.gz"
-tar -xzf "guacamole-auth-jdbc-${GUAC_VERSION}.tar.gz"
-tar -xzf "guacamole-auth-ldap-${GUAC_VERSION}.tar.gz"
-tar -xzf "guacamole-auth-sso-${GUAC_VERSION}.tar.gz"
+for p in ${GUAC_DOWNLOADS}; do
+    tar -xzf $(basename "${p}")
+done
 
 cd "guacamole-server-${GUAC_VERSION}"
 
@@ -67,18 +67,7 @@ javax2jakarta \
     "${MYSQL_EXTENSION}" \
     "${GUAC_HOME}/extensions/guacamole-auth-jdbc-mysql-${GUAC_VERSION}.jar"
 
-MYSQL_SCHEMA_DIR="$(
-    find \
-        "guacamole-auth-jdbc-${GUAC_VERSION}" \
-        -type d \
-        -path "*/mysql/schema" \
-        -print \
-        -quit
-)"
-
-test -n "${MYSQL_SCHEMA_DIR}"
-
-MARIADB_JAR="$(
+~MARIADB_JAR="$(
     find /usr/share/java \
         -maxdepth 1 \
         -type f \

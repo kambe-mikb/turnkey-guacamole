@@ -1,0 +1,47 @@
+#!/bin/bash -e
+
+DB_NAME="guacamole_db"
+DB_USER="guacadmin"
+DB_PASS=$(mcookie)
+
+MYSQL_SCHEMA_DIR="$(
+    find \
+        "guacamole-auth-jdbc-${GUAC_VERSION}" \
+        -type d \
+        -path "*/mysql/schema" \
+        -print \
+        -quit
+)"
+
+test -n "${MYSQL_SCHEMA_DIR}"
+
+# create database
+systemctl start mysql
+mysqladmin create "${DB_NAME}"
+cat "${MYSQL_SCHEMA_DIR}"/*.sql | mysql --batch
+
+# secure MySQL/MariaDB
+mysql <<EOF
+USE mysql;
+# remove anonymous users
+DELETE FROM user WHERE User='';
+
+# remove remote root
+DELETE FROM user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+
+# remove test database
+DROP DATABASE IF EXISTS test;
+DELETE FROM db WHERE Db='test' OR Db='test\\_%';
+EOF
+
+# Create database user for Guacamole
+ADMIN_PWORD=$(mcookie)
+
+mysql <<EOF
+CREATE USER 'guacadmin' IDENTIFIED BY '${ADMIN_PWORD}';
+GRANT SELECT,INSERT,UPDATE,DELETE ON guacamole_db.* TO 'guacadmin';
+FLUSH PRIVILEGES;
+EOF
+
+systemctl stop mysql
+
