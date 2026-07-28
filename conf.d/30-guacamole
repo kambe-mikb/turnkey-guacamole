@@ -1,4 +1,5 @@
-#!/bin/bash -e
+#!/bin/bash -ex
+source /usr/local/src/tkl-bashlib/init
 
 GUAC_VERSION="1.6.0"
 DOWNLOAD_BASE="https://downloads.apache.org/guacamole/${GUAC_VERSION}"
@@ -21,7 +22,7 @@ mkdir -p "${GUAC_HOME}/lib"
 cd "${BUILD_DIR}"
 
 for p in ${GUAC_DOWNLOADS}; do
-    curl -fL -O "${DOWNLOAD_PROXY}" "${DOWNLOAD_BASE}/${p}" -o $(basename "${p}")
+    curl -fLO "${DOWNLOAD_PROXY}" "${DOWNLOAD_BASE}/${p}")
 done
 
 sha256sum --check - <<EOF
