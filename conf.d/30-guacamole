@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -e
 
 GUAC_VERSION="1.6.0"
 DOWNLOAD_BASE="https://downloads.apache.org/guacamole/${GUAC_VERSION}"
