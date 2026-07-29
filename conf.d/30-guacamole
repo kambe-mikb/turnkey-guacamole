@@ -32,8 +32,8 @@ b07f27adc370324108527b6929f61d93880026d57c1033064bd1c55b881c7497  guacamole-auth
 e957984471ac50a87f472f51aec9bf7e378ae67ce2502ff938030011a670dcae  guacamole-auth-sso-1.6.0.tar.gz
 EOF
 
-for p in $(echo ${GUAC_DOWNLOADS}| grep '.tar.gz'); do
-    tar -xzf $(basename "${p}")
+for p in ${GUAC_DOWNLOADS}; do
+     [ ${p: -7} == '.tar.gz' ] && tar -xzf $(basename "${p}")
 done
 
 cd "guacamole-server-${GUAC_VERSION}"
