@@ -21,7 +21,7 @@ mkdir -p "${GUAC_HOME}/lib"
 cd "${BUILD_DIR}"
 
 for p in ${GUAC_DOWNLOADS}; do
-    curl -fLO ${DOWNLOAD_PROXY} "${DOWNLOAD_BASE}/${p}"~
+    curl -fLO ${DOWNLOAD_PROXY} "${DOWNLOAD_BASE}/${p}"
 done
 
 sha256sum --check - <<EOF
