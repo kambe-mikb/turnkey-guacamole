@@ -1,11 +1,7 @@
 #!/bin/bash -e
-
-GUAC_VERSION="1.6.0"
+GUAC_HOME="/etc/guacamole"
 DOWNLOAD_BASE="https://downloads.apache.org/guacamole/${GUAC_VERSION}"
 DOWNLOAD_PROXY="${FAB_HTTP_PROXY:+--proxy ${FAB_HTTP_PROXY}}"
-BUILD_DIR="/usr/src/guacamole-build"
-GUAC_HOME="/etc/guacamole"
-TOMCAT_WEBAPPS="/var/lib/tomcat10/webapps"
 GUAC_DOWNLOADS="
 source/guacamole-server-${GUAC_VERSION}.tar.gz
 binary/guacamole-${GUAC_VERSION}.war
@@ -13,6 +9,7 @@ binary/guacamole-auth-jdbc-${GUAC_VERSION}.tar.gz
 binary/guacamole-auth-ldap-${GUAC_VERSION}.tar.gz
 binary/guacamole-auth-sso-${GUAC_VERSION}.tar.gz
 "
+TOMCAT_WEBAPPS="/var/lib/tomcat10/webapps"
 
 mkdir -p "${BUILD_DIR}"
 mkdir -p "${GUAC_HOME}/extensions"
@@ -113,4 +110,3 @@ install -d -o guacd -g guacd -m 0750 /var/lib/guacd
 
 systemctl enable guacd.service
 
-rm -rf "${BUILD_DIR}"

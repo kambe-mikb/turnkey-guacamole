@@ -1,5 +1,4 @@
 #!/bin/bash -e
-GUAC_VERSION="1.6.0"
 
 DB_NAME="guacamole_db"
 DB_USER="guacadmin"
@@ -7,7 +6,7 @@ DB_PASS=$(mcookie)
 
 MYSQL_SCHEMA_DIR="$(
     find \
-        "guacamole-auth-jdbc-${GUAC_VERSION}" \
+        "${BUILD_DIR}/guacamole-auth-jdbc-${GUAC_VERSION}" \
         -type d \
         -path "*/mysql/schema" \
         -print \
@@ -22,10 +21,8 @@ mysqladmin create "${DB_NAME}"
 cat "${MYSQL_SCHEMA_DIR}"/*.sql | mysql --batch
 
 # Create database user for Guacamole
-ADMIN_PWORD=$(mcookie)
-
 mysql <<EOF
-CREATE USER 'guacadmin' IDENTIFIED BY '${ADMIN_PWORD}';
+CREATE USER 'guacadmin' IDENTIFIED BY '${DB_PASS}';
 GRANT SELECT,INSERT,UPDATE,DELETE ON guacamole_db.* TO 'guacadmin';
 FLUSH PRIVILEGES;
 EOF
