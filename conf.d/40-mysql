@@ -6,7 +6,7 @@ DB_PASS=$(mcookie)
 
 MYSQL_SCHEMA_DIR="$(
     find \
-        "${BUILD_DIR}/guacamole-auth-jdbc-${GUAC_VERSION}" \
+        "${FAB_BUILD_DIR}/guacamole-auth-jdbc-${FAB_GUAC_VERSION}" \
         -type d \
         -path "*/mysql/schema" \
         -print \
