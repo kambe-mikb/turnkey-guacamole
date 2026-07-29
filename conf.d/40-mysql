@@ -1,12 +1,14 @@
 #!/bin/bash -e
 
+source /usr/local/src/env.sh
+
 DB_NAME="guacamole_db"
 DB_USER="guacadmin"
 DB_PASS=$(mcookie)
 
 MYSQL_SCHEMA_DIR="$(
     find \
-        "${FAB_BUILD_DIR}/guacamole-auth-jdbc-${FAB_GUAC_VERSION}" \
+        "${BUILD_DIR}/guacamole-auth-jdbc-${GUAC_VERSION}" \
         -type d \
         -path "*/mysql/schema" \
         -print \
