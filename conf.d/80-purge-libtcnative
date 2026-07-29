@@ -1,4 +1,0 @@
-#!/bin/sh -e
-# Purge libtcnative
-apt-get purge -y libtcnative-1 || true
-ldconfig

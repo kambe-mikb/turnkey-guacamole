@@ -1,19 +1,15 @@
-#include <turnkey/base>
-#include <turnkey/tomcat-apache>
-#include <turnkey/mysql>
-
-ant
+#!/bin/sh -e
+# Purge unneeded packages
+PURGELIST="
 build-essential
 ca-certificates
 curl
 freerdp2-dev
-gnupg
 libavcodec-dev
 libavformat-dev
 libavutil-dev
 libcairo2-dev
 libjpeg62-turbo-dev
-libmariadb-java
 libossp-uuid-dev
 libpango1.0-dev
 libpng-dev
@@ -21,14 +17,18 @@ libpulse-dev
 libssh2-1-dev
 libssl-dev
 libswscale-dev
+libtcnative-1
 libtelnet-dev
 libtool-bin
 libvncserver-dev
 libvorbis-dev
 libwebp-dev
 libwebsockets-dev
-openjdk-17-jdk-headless
-openjdk-17-jre-headless
 pkg-config
 tomcat-jakartaee-migration
 uuid-dev
+"
+
+apt-get purge -y ${PURGELIST} || true
+apt autoremove --purge || true
+ldconfig
