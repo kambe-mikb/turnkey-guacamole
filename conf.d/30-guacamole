@@ -67,7 +67,7 @@ javax2jakarta \
     "${MYSQL_EXTENSION}" \
     "${GUAC_HOME}/extensions/guacamole-auth-jdbc-mysql-${GUAC_VERSION}.jar"
 
-~MARIADB_JAR="$(
+MARIADB_JAR="$(
     find /usr/share/java \
         -maxdepth 1 \
         -type f \
