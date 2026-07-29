@@ -1,4 +1,5 @@
 #!/bin/bash -e
+GUAC_VERSION="1.6.0"
 
 DB_NAME="guacamole_db"
 DB_USER="guacadmin"
