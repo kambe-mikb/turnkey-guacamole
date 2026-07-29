@@ -20,7 +20,7 @@ test -n "${MYSQL_SCHEMA_DIR}"
 # create database
 systemctl start mysql
 mysqladmin create "${DB_NAME}"
-cat "${MYSQL_SCHEMA_DIR}"/*.sql | mysql --batch -D "$DB_NAME}"
+cat "${MYSQL_SCHEMA_DIR}"/*.sql | mysql --batch -D "${DB_NAME}"
 
 # Create database user for Guacamole
 mysql <<EOF
