@@ -31,3 +31,5 @@ EOF
 
 systemctl stop mysql
 
+# enable our firstboot password setting
+chmod 0755 /usr/lib/inithooks/firstboot.d/45guacamole-mysqlpass
