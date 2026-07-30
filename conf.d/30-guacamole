@@ -35,9 +35,9 @@ e957984471ac50a87f472f51aec9bf7e378ae67ce2502ff938030011a670dcae  guacamole-auth
 EOF
 
 for p in ${GUAC_DOWNLOADS}; do
-    local archive = $(basename "${p}")
+    archive = $(basename "${p}")
     if [ ${archive: -7} == '.tar.gz' ]; then
-	local target = "${archive%%.tar.gz}"
+	target = "${archive%%.tar.gz}"
 	tar -xzf "${archive}"
 	if [ x$(dirname "${p}") == "xsource" ]; then
 	    cd "${target}"
@@ -51,12 +51,12 @@ for p in ${GUAC_DOWNLOADS}; do
 	    cd -
         else
 	    case "${target}" in
-		*jdbc*) local jar="${target/jdbc/jdbc-mysql}.jar";;
-		*sso*)  local jar="${target/sso/sso-openid}.jar";;
-		*)      local jar="${target}.jar";;
+		*jdbc*) jar="${target/jdbc/jdbc-mysql}.jar";;
+		*sso*)  jar="${target/sso/sso-openid}.jar";;
+		*)      jar="${target}.jar";;
 	    esac
 
-	    local extension=$(find "${target}" -type f -name "${jar}" -print -quit)
+	    extension=$(find "${target}" -type f -name "${jar}" -print -quit)
 
 	    test -n "${extension}"
 	    javax2jakarta "${extension}" "${GUAC_VERSION}/extensions/${extension}"
