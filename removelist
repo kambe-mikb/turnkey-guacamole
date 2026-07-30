@@ -1,6 +1,2 @@
-# remove /usr/local/src/env.sh
-/usr/local/src/env.sh
+# remove /usr/local/src
 /usr/local/src
-
-# remove /usr/src/guacamole
-/usr/local/src/guacamole
