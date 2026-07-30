@@ -35,9 +35,9 @@ e957984471ac50a87f472f51aec9bf7e378ae67ce2502ff938030011a670dcae  guacamole-auth
 EOF
 
 for p in ${GUAC_DOWNLOADS}; do
-    archive = $(basename "${p}")
+    archive=$(basename "${p}")
     if [ ${archive: -7} == '.tar.gz' ]; then
-	target = "${archive%%.tar.gz}"
+	target="${archive%%.tar.gz}"
 	tar -xzf "${archive}"
 	if [ x$(dirname "${p}") == "xsource" ]; then
 	    cd "${target}"
