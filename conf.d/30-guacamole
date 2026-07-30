@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 
 source /usr/local/src/env.sh
 
@@ -36,7 +36,7 @@ EOF
 
 for p in ${GUAC_DOWNLOADS}; do
     archive=$(basename "${p}")
-    if [ ${archive: -7} == '.tar.gz' ]; then
+    if [ "${archive: -7}x" == '.tar.gzx' ]; then
 	target="${archive%%.tar.gz}"
 	tar -xzf "${archive}"
 	if [ x$(dirname "${p}") == "xsource" ]; then
@@ -59,10 +59,10 @@ for p in ${GUAC_DOWNLOADS}; do
 	    extension=$(find "${target}" -type f -name "${jar}" -print -quit)
 
 	    test -n "${extension}"
-	    javax2jakarta "${extension}" "${GUAC_VERSION}/extensions/${extension}"
+	    javax2jakarta "${extension}" "${GUAC_HOME}/extensions/${jar}"
 	fi
     else
-	javax2jakarta "${target}" "${TOMCAT_WEBAPPS}/${target/-${GUAC_VERSION}}"
+	javax2jakarta "${archive}" "${TOMCAT_WEBAPPS}/${archive/-${GUAC_VERSION}}"
     fi
 done
 
