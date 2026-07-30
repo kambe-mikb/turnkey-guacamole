@@ -11,6 +11,7 @@ binary/guacamole-${GUAC_VERSION}.war
 binary/guacamole-auth-jdbc-${GUAC_VERSION}.tar.gz
 binary/guacamole-auth-ldap-${GUAC_VERSION}.tar.gz
 binary/guacamole-auth-sso-${GUAC_VERSION}.tar.gz
+binary/guacamole-history-recording-storage-${GUAC_VERSION}.tar.gz
 "
 TOMCAT_WEBAPPS="/var/lib/tomcat10/webapps"
 
@@ -30,6 +31,7 @@ b41ceb1e2df010b54db563e0b00edb8d5fe9f073c6168462e4c978df0fc6e716  guacamole-1.6.
 b07f27adc370324108527b6929f61d93880026d57c1033064bd1c55b881c7497  guacamole-auth-ldap-1.6.0.tar.gz
 97bc5fd3d67d25c0e98a475d1dfd308a037859f549fac47171c723b7a7039366  guacamole-auth-jdbc-1.6.0.tar.gz
 e957984471ac50a87f472f51aec9bf7e378ae67ce2502ff938030011a670dcae  guacamole-auth-sso-1.6.0.tar.gz
+823ea44766035cf8a8b108946547c94749022b7010c9961ffd3e73fd5659796d  guacamole-history-recording-storage-1.6.0.tar.gz
 EOF
 
 for p in ${GUAC_DOWNLOADS}; do
@@ -109,7 +111,23 @@ javax2jakarta \
     "${SSO_EXTENSION}" \
     "${GUAC_HOME}/extensions/guacamole-auth-sso-${GUAC_VERSION}.jar"
 
-install -d -o guacd -g guacd -m 0750 /var/lib/guacd
+RECORDING_EXTENSION="$(
+    find \
+        "guacamole-history-recording-storage-${GUAC_VERSION}" \
+        -type f \
+        -name "guacamole-history-recording-storage-${GUAC_VERSION}.jar" \
+        -print \
+        -quit
+)"
+
+test -n "${RECORDING_EXTENSION}"
+
+javax2jakarta \
+    "${RECORDING_EXTENSION}" \
+    "${GUAC_HOME}/extensions/guacamole-history-recording-storage-${GUAC_VERSION}.jar"
+
+install -d -o guacd -g guacd -m 0751 /var/lib/guacd
+install -d -o guacd -g tomcat -m 2750 /var/lib/guacd/recordings
 
 systemctl enable guacd.service
 
