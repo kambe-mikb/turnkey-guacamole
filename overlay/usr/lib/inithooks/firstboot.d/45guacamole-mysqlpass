@@ -1,9 +1,9 @@
 #!/bin/bash -e
-# set mysql root password
+# set datbase password for guacadmin
 
 . /etc/default/inithooks
 
-[ -e $INITHOOKS_CONF ] && . $INITHOOKS_CONF
-$INITHOOKS_PATH/bin/mysqlconf.py --user=guacadmin --pass="$DB_PASS"
+[ -e ${INITHOOKS_CONF} ] && . ${INITHOOKS_CONF}
+${INITHOOKS_PATH}/bin/mysqlconf.py --user=guacadmin --pass="${DB_PASS}"
 sed -i "s/__TURNKEY_GUACAMOLE_DATABASE_PASSWORD__/${DB_PASS}" /etc/guacamole/guacamole.properties
 

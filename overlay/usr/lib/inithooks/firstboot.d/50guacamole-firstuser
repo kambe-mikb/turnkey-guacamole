@@ -1,0 +1,9 @@
+#!/bin/bash -e
+# create the first user for guacamole
+
+. /etc/default/inithooks
+
+[ -e ${INITHOOKS_CONF} ] && . ${INITHOOKS_CONF}
+${INITHOOKS_PATH}/bin/guacuser.py
+
+
