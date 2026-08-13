@@ -1,7 +1,6 @@
 Apache Guacamole - a Clientless Remote Desktop Gateway
 ======================================================
 
-0---------1---------2---------3---------4---------5---------6---------7---------8
 `Guacamole`_  is an HTML5 web application that provides access to desktop
 environments using remote desktop protocols (such as VNC or RDP). It provides
 cross-browser mouse and keyboard events, an XML-driven on-screen keyboard, and
